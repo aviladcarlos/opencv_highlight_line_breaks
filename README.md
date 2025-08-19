@@ -7,6 +7,21 @@ I set out to develop a solution for detecting and highlighting line breaks in im
 | [Python](https://www.python.org/) | 3.12.4 |
 | [OpenCV Contrib Python](https://pypi.org/project/opencv-contrib-python/)| 4.11.0.86 |
 | [Numpy](https://pypi.org/project/numpy/) | 2.2.3 |
+## Running script with Docker
+> [!Note]
+> All commands are ran within the root folder 'opencv_highlight_line_breaks'.
+> 
+> On Windows, in order to render the script’s pop-up window in Docker a X Server needs to be installed. In my case, I used VcXsrv. A X Server must be launched before running the commands below.
+
+To build Docker Image of project:
+```
+docker build -t opencv_highlight_line_breaks .
+```
+To run a Docker Container of the project:
+```
+docker run -e DISPLAY=host.docker.internal:0.0 -it opencv_highlight_line_breaks
+```
+
 ## Walkthrough
 [![Walkthrough Video](https://github.com/user-attachments/assets/5144a754-e66f-467e-bab8-28ed233378f0)](https://drive.google.com/file/d/1YEgVq6JhyKqzh4LJ0NqhkvWT4IwwTPTf/view?usp=drive_link) 
 ## Example
