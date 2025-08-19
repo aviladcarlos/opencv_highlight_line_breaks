@@ -79,9 +79,27 @@ alpha = 0.5
 # Blends two images together based on the transparency set for each image
 final_img = cv2.addWeighted(overlay, alpha, img_color, 1 - alpha, 0)
 
-# Displays final_img in a pop-up window that is close by pressing any key
+# Displays final_img in a pop-up window named 'Line_Breaks_Detected'
 cv2.imshow('Line_Breaks_Detected', final_img)
-cv2.waitKey(0)
+
+# Waits indefinitely until the user presses a key or closes the window. If a number greater than 0 is placed,
+# the function will wait X milliseconds for user input before exiting and returning -1. If running script locally,
+# only 'cv2.waitKey(0)' is needed to exit the script and the while loop below can be commented out.
+# cv2.waitKey(0)
+
+# When running the script in a Docker Container, 'cv2.waitKey(0)' will successfully exit when any key is pressed.
+# However, the function doesn't exit if the window is closed by clicking the 'x' button in the top right corner of the
+# pop-up window. To ensure the script exits if the pop-up window is closed by the 'x' button instead of a key,
+# created a while loop that checks if the pop-up window is still visible then waits 2 seconds for a key to be pressed.
+# 'cv2.getWindowProperty()' returns 0 if the pop-up window is no longer visible.
+while cv2.getWindowProperty('Line_Breaks_Detected', cv2.WND_PROP_VISIBLE) == 1:
+
+    wait_time = 2000
+
+    if cv2.waitKey(wait_time) != -1:
+        break
+
+# Closes and destroys all windows created by the script
 cv2.destroyAllWindows()
 
 # Saves the final_img, uncomment if you want to save the file
